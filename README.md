@@ -2,7 +2,7 @@
 
 A full-stack web application that crawls websites and analyzes their content, providing insights about HTML structure, links, and accessibility.
 
-## 🚀 Features
+## Features
 
 - **URL Management**: Add and manage URLs for analysis
 - **Web Crawling**: Automated analysis of website content
@@ -11,7 +11,7 @@ A full-stack web application that crawls websites and analyzes their content, pr
 - **Real-time Updates**: Live crawl status updates
 - **Bulk Actions**: Process multiple URLs simultaneously
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **Go** (Golang) with Gin framework
@@ -26,14 +26,14 @@ A full-stack web application that crawls websites and analyzes their content, pr
 - **Recharts** for data visualization
 - **Jest** + React Testing Library for testing
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Go 1.21 or higher
 - Node.js 18 or higher
 - MySQL 8.0 or higher
 - Docker & Docker Compose (optional)
 
-## 🏃‍♂️ Quick Start
+## Quick Start
 
 ### Using Docker (Recommended)
 
@@ -94,7 +94,7 @@ npm install
 npm start
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Frontend Tests
 ```bash
@@ -108,7 +108,7 @@ cd backend
 go test ./...
 ```
 
-## 📊 API Documentation
+## API Documentation
 
 ### Authentication
 All API endpoints require JWT authentication. Get a token by calling:
@@ -128,25 +128,7 @@ POST /api/auth/login
 ### WebSocket
 Real-time updates available at: `ws://localhost:8080/ws`
 
-## 🏗️ Project Structure
-
-```
-web-crawler-app/
-├── backend/           # Go backend application
-│   ├── handlers/      # HTTP handlers
-│   ├── models/        # Database models
-│   ├── services/      # Business logic
-│   └── middleware/    # Authentication middleware
-├── frontend/          # React frontend application
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── pages/      # Page components
-│   │   ├── hooks/      # Custom hooks
-│   │   └── types/      # TypeScript types
-└── docker-compose.yml # Docker configuration
-```
-
-## 🚀 Deployment
+## Deployment
 
 ### Production Build
 
@@ -157,22 +139,5 @@ docker-compose -f docker-compose.prod.yml up --build
 
 2. The application will be available at your configured domain.
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Development Team
-
-Built as a technical assessment for Sykell Full-Stack Developer position.
-
 ---
-
 ⚠️ **Note**: This is a demonstration project. Do not use in production without proper security review and hardening.
