@@ -84,7 +84,6 @@ crawler-web-app/
 **Access the application**
 - Frontend: http://localhost:80
 - Backend API: http://localhost:8080
-- MySQL: localhost:3306
 
 ### Manual Setup
 
@@ -100,7 +99,7 @@ crawler-web-app/
   # Set up environment variables
   cp .env.example .env # Edit .env with your database credentials
 
-  # Run database
+  # Start the backend server
   go run main.go
 ```
 
@@ -121,13 +120,13 @@ crawler-web-app/
   # Start MySQL's server
   mysql.server start
 
-  # Check if the server started successfully
+  # Check if server started successfully
   mysql.server status 
 
-  # Initialize database
+  # Run database
   mysql -u root -p < init.sql
 
-  # It shows 'Enter password:', just press 'Enter'
+  # When it shows 'Enter password:', just press 'Enter'
 ```
 
 ## Testing
