@@ -1,6 +1,6 @@
 import type { CrawlResult } from '../types';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 export const apiService = {
   async getCrawlResults(page: number = 1, limit: number = 10, status: string = ''): Promise<{results: CrawlResult[], total: number}> {

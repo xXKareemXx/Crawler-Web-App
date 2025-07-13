@@ -16,9 +16,13 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
   onSelectionChange, 
   onRowClick 
 }) => {
+  // Add null/undefined checks
+  const safeResults = results || [];
+  const safeSelectedIds = selectedIds || [];
+
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      onSelectionChange(results.map(r => r.id));
+      onSelectionChange(safeResults.map(r => r.id));
     } else {
       onSelectionChange([]);
     }
@@ -26,9 +30,9 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
 
   const handleSelectRow = (id: string, checked: boolean) => {
     if (checked) {
-      onSelectionChange([...selectedIds, id]);
+      onSelectionChange([...safeSelectedIds, id]);
     } else {
-      onSelectionChange(selectedIds.filter(selectedId => selectedId !== id));
+      onSelectionChange(safeSelectedIds.filter(selectedId => selectedId !== id));
     }
   };
 
@@ -41,7 +45,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
               <th className="px-6 py-3 text-left">
                 <input
                   type="checkbox"
-                  checked={results.length > 0 && selectedIds.length === results.length}
+                  checked={safeResults.length > 0 && safeSelectedIds.length === safeResults.length}
                   onChange={(e) => handleSelectAll(e.target.checked)}
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
@@ -67,7 +71,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {results.map((result) => (
+            {safeResults.map((result) => (
               <tr 
                 key={result.id} 
                 className="hover:bg-gray-50 cursor-pointer"
@@ -76,7 +80,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
                 <td className="px-6 py-4 whitespace-nowrap" onClick={e => e.stopPropagation()}>
                   <input
                     type="checkbox"
-                    checked={selectedIds.includes(result.id)}
+                    checked={safeSelectedIds.includes(result.id)}
                     onChange={(e) => handleSelectRow(result.id, e.target.checked)}
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
@@ -90,15 +94,15 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900 truncate max-w-xs">{result.title}</div>
+                  <div className="text-sm text-gray-900 truncate max-w-xs">{result.title || 'No title'}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{result.htmlVersion}</div>
+                  <div className="text-sm text-gray-900">{result.htmlVersion || 'N/A'}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">
-                    {result.internalLinks} internal / {result.externalLinks} external
-                    {result.brokenLinks.length > 0 && (
+                    {result.internalLinks || 0} internal / {result.externalLinks || 0} external
+                    {result.brokenLinks && result.brokenLinks.length > 0 && (
                       <span className="ml-2 text-red-600">({result.brokenLinks.length} broken)</span>
                     )}
                   </div>

@@ -67,10 +67,12 @@ func (h *CrawlHandler) CreateCrawlResult(c *gin.Context) {
 	}
 
 	crawlResult := models.CrawlResult{
-		ID:        uuid.New().String(),
-		URL:       req.URL,
-		Status:    models.StatusQueued,
-		CreatedAt: time.Now(),
+		ID:            uuid.New().String(),
+		URL:           req.URL,
+		Status:        models.StatusQueued,
+		CreatedAt:     time.Now(),
+		HeadingCounts: "{}",
+		BrokenLinks:   "[]",
 	}
 
 	if err := h.db.Create(&crawlResult).Error; err != nil {

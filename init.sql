@@ -2,6 +2,8 @@
 CREATE DATABASE IF NOT EXISTS crawler_db;
 USE crawler_db;
 
+DELETE FROM crawl_results;
+
 -- Create tables (GORM will handle this, but this is a backup)
 CREATE TABLE IF NOT EXISTS crawl_results (
     id VARCHAR(36) PRIMARY KEY,
@@ -32,11 +34,8 @@ INSERT INTO crawl_results (id, url, title, html_version, heading_counts, interna
 ('sample-2', 'https://github.com', "GitHub: Let's build from here", 'HTML5', '{"h1":1,"h2":4,"h3":8,"h4":2,"h5":0,"h6":0}', 25, 12, '[{"url":"https://github.com/broken-link","statusCode":404,"error":"Not Found"}]', TRUE, 'completed', NOW(), NOW()),
 ('sample-3', 'https://loading-site.com', 'Loading Site', 'HTML5', '{"h1":0,"h2":0,"h3":0,"h4":0,"h5":0,"h6":0}', 0, 0, '[]', FALSE, 'running', NOW(), NULL);
 
--- Create indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_crawl_results_url ON crawl_results(url(255));
-CREATE INDEX IF NOT EXISTS idx_crawl_results_status ON crawl_results(status);
-CREATE INDEX IF NOT EXISTS idx_crawl_results_created_at ON crawl_results(created_at);
-
 -- Grant permissions
+-- CREATE USER IF NOT EXISTS 'crawler_user'@'%' IDENTIFIED BY 'crawler_password';
+
 GRANT ALL PRIVILEGES ON crawler_db.* TO 'crawler_user'@'%';
 FLUSH PRIVILEGES;

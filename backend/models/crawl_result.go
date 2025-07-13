@@ -40,10 +40,10 @@ type CrawlResult struct {
 	URL           string         `json:"url" gorm:"not null"`
 	Title         string         `json:"title"`
 	HTMLVersion   string         `json:"htmlVersion"`
-	HeadingCounts string         `json:"-" gorm:"type:text"` // JSON string in DB
+	HeadingCounts string         `json:"-" gorm:"type:text"`
 	InternalLinks int            `json:"internalLinks"`
 	ExternalLinks int            `json:"externalLinks"`
-	BrokenLinks   string         `json:"-" gorm:"type:text"` // JSON string in DB
+	BrokenLinks   string         `json:"-" gorm:"type:text"`
 	HasLoginForm  bool           `json:"hasLoginForm"`
 	Status        CrawlStatus    `json:"status" gorm:"default:queued"`
 	CreatedAt     time.Time      `json:"createdAt"`

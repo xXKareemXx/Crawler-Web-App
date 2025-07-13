@@ -41,7 +41,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ result, onClose }) => {
               <div className="text-sm text-green-800">External Links</div>
             </div>
             <div className="bg-red-50 p-4 rounded-lg">
-              <div className="text-2xl font-bold text-red-600">{result.brokenLinks.length}</div>
+              <div className="text-2xl font-bold text-red-600">{result.brokenLinks?.length || 0}</div>
               <div className="text-sm text-red-800">Broken Links</div>
             </div>
           </div>
@@ -90,7 +90,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ result, onClose }) => {
           </div>
 
           {/* Broken Links */}
-          {result.brokenLinks.length > 0 && (
+          {result.brokenLinks && result.brokenLinks.length > 0 && (
             <div className="bg-red-50 p-4 rounded-lg">
               <h4 className="font-semibold text-red-900 mb-3">Broken Links</h4>
               <div className="space-y-2">

@@ -15,11 +15,11 @@ import (
 
 // InitDB initializes the database connection
 func InitDB() (*gorm.DB, error) {
-	// Get database configuration from environment variables
+	// Database configuration from environment variables
 	dbHost := getEnv("DB_HOST", "localhost")
 	dbPort := getEnv("DB_PORT", "3306")
-	dbUser := getEnv("DB_USER", "root")
-	dbPassword := getEnv("DB_PASSWORD", "password")
+	dbUser := getEnv("DB_USER", "crawler_user")
+	dbPassword := getEnv("DB_PASSWORD", "crawler_password")
 	dbName := getEnv("DB_NAME", "crawler_db")
 
 	// Create DSN (Data Source Name)

@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -57,6 +58,7 @@ func (s *CrawlService) ProcessCrawlQueue(ids []string) {
 func (s *CrawlService) processSingleCrawl(id string) {
 	var crawlResult models.CrawlResult
 	if err := s.db.First(&crawlResult, "id = ?", id).Error; err != nil {
+		log.Printf("Failed to find crawl result with ID %s: %v", id, err)
 		return
 	}
 
