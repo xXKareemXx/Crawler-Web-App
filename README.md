@@ -105,7 +105,6 @@ crawler-web-app/
 ```
 
 #### Frontend Setup
-
 ```bash
   # Navigate to frontend directory
   cd frontend
@@ -115,6 +114,18 @@ crawler-web-app/
 
   # Start the development server
   npm run dev
+```
+
+#### MySQL Setup
+```bash
+  # Start MySQL's server
+  mysql.server start
+
+  # Check if the server started successfully
+  mysql.server status 
+
+  # Initialize database
+  mysql -u root -p < init.sql
 ```
 
 ## Testing
