@@ -39,11 +39,11 @@ A full-stack web application that crawls websites and analyzes their content, pr
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/web-crawler-app.git
-cd web-crawler-app
+git clone https://github.com/xXKareemXx/Crawler-app.git
+cd Crawler-app
 ```
 
-2. Start the application:
+2. Start the entier application:
 ```bash
 docker-compose up --build
 ```
@@ -51,6 +51,7 @@ docker-compose up --build
 3. Access the application:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8080
+- MySQL: localhost:3306
 
 ### Manual Setup
 
