@@ -74,7 +74,7 @@ crawler-web-app/
 
 ```bash
   # Clone the repository
-  git clone https://github.com/xXKareemXx/Crawler-app.git
+  git clone https://github.com/xXKareemXx/crawler-web-app.git
   cd crawler-web-app
 
   # Start the entire application**
