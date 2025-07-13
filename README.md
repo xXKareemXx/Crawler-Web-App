@@ -126,6 +126,8 @@ crawler-web-app/
 
   # Initialize database
   mysql -u root -p < init.sql
+
+  # It shows 'Enter password:', just press 'Enter'
 ```
 
 ## Testing
