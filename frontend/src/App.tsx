@@ -11,11 +11,13 @@ import DetailsModal from './components/DetailsModal';
 const WebCrawlerApp: React.FC = () => {
   const [results, setResults] = useState<CrawlResult[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(false);
   const [selectedResult, setSelectedResult] = useState<CrawlResult | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
+  const [limit, setLimit] = useState(10);
 
   // Load initial data
   useEffect(() => {
@@ -48,13 +50,41 @@ const WebCrawlerApp: React.FC = () => {
     if (selectedIds.length === 0) return;
     
     try {
+      // Start the crawling process
       await apiService.startCrawling(selectedIds);
-      setResults(results.map(r => 
-        selectedIds.includes(r.id) ? { ...r, status: 'running' as const } : r
-      ));
+      // Start polling for updates
+      const pollInterval = setInterval(async () => {
+      try {
+          // Fetch updated results
+          const { results } = await apiService.getCrawlResults(currentPage, limit, statusFilter);
+          setResults(results); // Update your state
+          
+          // Check if all selected crawls are completed
+          const selectedResults = results.filter(r => selectedIds.includes(r.id));
+          const allCompleted = selectedResults.every(r => 
+            r.status === 'completed' || r.status === 'error'
+          );
+          
+          // Stop polling when all are done
+          if (allCompleted) {
+            clearInterval(pollInterval);
+            console.log('All crawls completed, stopping polling');
+          }
+        } catch (error) {
+            console.error('Polling error:', error);
+            clearInterval(pollInterval);
+        }
+      }, 2000); // Poll every 2 seconds
+      
+      // Safety cleanup - stop polling after 5 minutes
+      setTimeout(() => {
+        clearInterval(pollInterval);
+        console.log('Polling stopped due to timeout');
+      }, 300000);
+
       setSelectedIds([]);
     } catch (error) {
-      console.error('Failed to start crawling:', error);
+        console.error('Failed to start crawling:', error);
     }
   };
 
