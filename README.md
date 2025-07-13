@@ -1,55 +1,88 @@
-# Web Crawler Application
+# Crawler Web Application
 
-A full-stack web application that crawls websites and analyzes their content, providing insights about HTML structure, links, and accessibility.
+A modern web crawler application built with Go (Gin) backend and React (TypeScript) frontend. This tool allows you to analyze websites for SEO and technical insights including link analysis, heading structure, HTML version detection, and broken link identification.
 
 ## Features
 
-- **URL Management**: Add and manage URLs for analysis
-- **Web Crawling**: Automated analysis of website content
-- **Results Dashboard**: Paginated, sortable table with filtering
-- **Details View**: Detailed analysis with charts and broken links
-- **Real-time Updates**: Live crawl status updates
-- **Bulk Actions**: Process multiple URLs simultaneously
+- **URL Analysis**: Crawl websites to extract technical information
+- **Link Analysis**: Count internal and external links, detect broken links
+- **Heading Structure**: Analyze H1-H6 heading distribution
+- **HTML Version Detection**: Identify HTML version (HTML5, HTML 4.01, XHTML)
+- **Login Form Detection**: Detect presence of login forms
+- **Bulk Operations**: Process multiple URLs simultaneously
+- **Real-time Status Updates**: Monitor crawling progress
+- **Responsive UI**: Modern, clean interface with detailed analytics
 
 ## Tech Stack
 
 ### Backend
-- **Go** (Golang) with Gin framework
-- **MySQL** for data storage
-- **JWT** authentication
-- **WebSocket** for real-time updates
+- **Go** with Gin framework
+- **MySQL** database with GORM ORM
+- **Docker** containerization
+- **RESTful API** design
+- **UUID** - Unique identifier generation
 
 ### Frontend
 - **React** with TypeScript
 - **Tailwind CSS** for styling
-- **React Router** for navigation
-- **Recharts** for data visualization
-- **Jest** + React Testing Library for testing
+- **Lucide React** icons
+- **Vite** for fast development and building
+
+## Project Structure
+
+```
+crawler-web-app/
+├── backend/
+│   ├── database/
+│   ├── handlers/
+│   ├── middleware/
+│   ├── models/
+│   ├── services/
+│   ├── main.go
+│   └── go.mod
+│   └── go.sum
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── types/
+│   │   └── App.tsx
+│   │   └── index.css
+│   │   └── main.tsx
+│   ├── public/
+│   └── package.json
+├── init.sql
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile.backend
+├── Dockerfile.frontend
+├── Makefile
+├── nginx.conf
+└── README.md
+```
 
 ## Prerequisites
 
-- Go 1.21 or higher
-- Node.js 18 or higher
-- MySQL 8.0 or higher
-- Docker & Docker Compose (optional)
+- Go 1.19+
+- Node.js 18+
+- MySQL 8.0+
+- Docker & Docker Compose (Optional)
 
 ## Quick Start
 
 ### Using Docker (Recommended)
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/xXKareemXx/Crawler-app.git
-cd Crawler-app
+  # Clone the repository
+  git clone https://github.com/xXKareemXx/Crawler-app.git
+  cd crawler-web-app
+
+  # Start the entire application**
+  docker-compose up --build
 ```
 
-2. Start the entier application:
-```bash
-docker-compose up --build
-```
-
-3. Access the application:
-- Frontend: http://localhost:3000
+**Access the application**
+- Frontend: http://localhost:80
 - Backend API: http://localhost:8080
 - MySQL: localhost:3306
 
@@ -57,51 +90,34 @@ docker-compose up --build
 
 #### Backend Setup
 
-1. Navigate to backend directory:
 ```bash
-cd backend
-```
+  # Navigate to backend directory
+  cd backend
 
-2. Install dependencies:
-```bash
-go mod download
-```
+  # Install dependencies
+  go mod download
 
-3. Set up environment variables:
-```bash
-cp .env.example .env
-# Edit .env with your database configuration
-```
+  # Set up environment variables
+  cp .env.example .env # Edit .env with your database credentials
 
-4. Run the backend:
-```bash
-go run main.go
+  # Run database
+  go run main.go
 ```
 
 #### Frontend Setup
 
-1. Navigate to frontend directory:
 ```bash
-cd frontend
-```
+  # Navigate to frontend directory
+  cd frontend
 
-2. Install dependencies:
-```bash
-npm install
-```
+  # Install dependencies
+  npm install
 
-3. Start the development server:
-```bash
-npm start
+  # Start the development server
+  npm run dev
 ```
 
 ## Testing
-
-### Frontend Tests
-```bash
-cd frontend
-npm test
-```
 
 ### Backend Tests
 ```bash
@@ -109,36 +125,78 @@ cd backend
 go test ./...
 ```
 
-## API Documentation
-
-### Authentication
-All API endpoints require JWT authentication. Get a token by calling:
-```
-POST /api/auth/login
+### Frontend Tests
+```bash
+cd frontend
+npm test
 ```
 
-### Endpoints
+## API Endpoints
 
-- `POST /api/urls` - Add URL for analysis
-- `GET /api/urls` - List all URLs (paginated, sortable)
-- `GET /api/urls/:id` - Get URL details
-- `PUT /api/urls/:id/crawl` - Start/stop crawling
-- `DELETE /api/urls/:id` - Delete URL
-- `POST /api/urls/bulk` - Bulk actions
+### Crawl Results
+- `GET /api/crawl-results` - Get paginated crawl results
+- `POST /api/crawl-results` - Create new crawl result
+- `GET /api/crawl-results/:id` - Get specific crawl result
+- `PUT /api/crawl-results/:id` - Update crawl result
+- `DELETE /api/crawl-results/:id` - Delete crawl result
 
-### WebSocket
-Real-time updates available at: `ws://localhost:8080/ws`
+### Bulk Operations
+- `POST /api/crawl-results/start-crawling` - Start crawling for multiple URLs
+- `POST /api/crawl-results/bulk-delete` - Delete multiple crawl results
+
+### Query Parameters
+- `page`: Page number (default: 1)
+- `limit`: Results per page (default: 10, max: 100)
+- `status`: Filter by status (queued, running, completed, error)
+
+## Configuration
+
+### Environment Variables
+
+#### Backend
+```env
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=crawler_user
+DB_PASSWORD=crawler_password
+DB_NAME=crawler_db
+PORT=8080
+```
+
+#### Frontend
+```env
+VITE_API_URL=http://localhost:8080/api
+```
+
+### Status Values
+- `queued`: Crawl request created, waiting to be processed
+- `running`: Crawl is currently in progress
+- `completed`: Crawl finished successfully
+- `error`: Crawl failed with an error
 
 ## Deployment
 
-### Production Build
-
-1. Build the application:
+### Docker Production Build
 ```bash
-docker-compose -f docker-compose.prod.yml up --build
+make build
+make up-prod
 ```
 
-2. The application will be available at your configured domain.
+### Manual Deployment
+1. Build backend binary
+2. Build frontend static files
+3. Configure Nginx
+4. Set up MySQL database
+5. Configure environment variables
 
----
-⚠️ **Note**: This is a demonstration project. Do not use in production without proper security review and hardening.
+## Common Issues
+
+### Status Not Updating
+The crawl status may appear stuck in "running" state. This is because the frontend doesn't automatically refresh. Click the "Refresh" button or implement polling for real-time updates.
+
+### Database Connection Issues
+Ensure MySQL is running and connection parameters are correct in the environment variables.
+
+### CORS Issues
+Make sure the backend CORS configuration allows requests from your frontend domain.
