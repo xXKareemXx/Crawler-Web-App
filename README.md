@@ -1,6 +1,7 @@
 # Crawler Web Application
 
 🕷️ A comprehensive web crawler and analysis tool built with Go, React, and MySQL. This application crawls websites to extract valuable insights, including link analysis, heading structure, HTML version detection, and broken link identification. Perfect for SEO analysis, website auditing, and content structure evaluation.
+Walkthrough: https://drive.google.com/file/d/1rE0fFJygmBb_O8Q53FFYWbbqOXgggYYO/view?usp=drive_link
 
 ## Features
 
